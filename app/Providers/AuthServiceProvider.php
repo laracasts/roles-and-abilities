@@ -26,7 +26,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function ($user, $ability) {
-            return $user->abilities()->contains($ability);
+            if ($user->abilities()->contains($ability)) {
+                return true;   
+            }
         });
     }
 }
